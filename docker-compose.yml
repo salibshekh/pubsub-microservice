@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb-conta
+    ports:
+      - "27017:27017"
+    networks:
+      - my-network
+
+  redis:
+    image: redis
+    container_name: my-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - my-network
+
+  receiver-service:
+    build:
+      context: ./receiver-service
+    container_name: receiver-service
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongodb:27017/pubsubDB
+      - REDIS_URL=redis://my-redis:6379
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - ./receiver-service:/usr/src/app
+    networks:
+      - my-network
+
+  listener-service:
+    build:
+      context: ./listener-service
+    container_name: listener-service
+    ports:
+      - "3001:3001"  
+    environment:
+      - PORT=3001
+      - MONGO_URI=mongodb://mongodb:27017/pubsubDB  
+      - REDIS_URL=redis://my-redis:6379
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - ./listener-service:/usr/src/app
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
