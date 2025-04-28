@@ -15,4 +15,4 @@ COPY . .
 # App will run on port 3000
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
