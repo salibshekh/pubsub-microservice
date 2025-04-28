@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3001
 
 # Use npx to ensure nodemon from node_modules is used
-CMD ["nodemon"]
+CMD ["npm", "start"]
