@@ -14,7 +14,7 @@ RUN npm cache clean --force
 RUN npm install
 
 # Optionally, install nodemon globally (if you prefer global installation)
-# RUN npm install -g nodemon
+RUN npm install -g nodemon
 
 # Bundle app source
 COPY . .
