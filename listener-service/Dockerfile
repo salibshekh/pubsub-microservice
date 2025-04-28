@@ -4,23 +4,23 @@ FROM node:18
 # Create app directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Clean npm cache to avoid potential issues
 RUN npm cache clean --force
 
-# Install dependencies, including development dependencies (nodemon)
+# Install dependencies, including express and nodemon
 RUN npm install
 
-# Optionally, install nodemon globally (if you prefer global installation)
-RUN npm install -g nodemon
-
-# Bundle app source
+# Copy the rest of the application files
 COPY . .
 
-# Listener service ka koi HTTP API nahi, but expose karte hai (optional)
+# Ensure the app files have proper ownership
+RUN chown -R node:node /app
+
+# Expose port (adjust according to your app's port)
 EXPOSE 3001
 
-# Run in dev mode (same as receiver-service)
-CMD ["npm", "run", "dev"]
+# Use npx to ensure nodemon from node_modules is used
+CMD ["npx", "nodemon", "app.js"]
