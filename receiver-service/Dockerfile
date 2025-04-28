@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Use npx to ensure nodemon from node_modules is used
-CMD ["npm", "run", "dev"
+CMD ["npm", "run", "dev"]
