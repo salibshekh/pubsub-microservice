@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Ensure the app files have proper ownership
-RUN chown -R node:node /app
+RUN chown -R node:node /usr/src/app
 
 # Expose port (adjust according to your app's port)
 EXPOSE 3000
