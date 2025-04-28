@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 3001
 
 # Run in dev mode (same as receiver-service)
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
