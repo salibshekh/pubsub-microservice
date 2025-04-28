@@ -7,20 +7,14 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Clean npm cache to avoid potential issues
-RUN npm cache clean --force
-
-# Install dependencies, including express and nodemon
+# Install dependencies
 RUN npm install
 
 # Copy the rest of the application files
 COPY . .
 
-# Ensure the app files have proper ownership
-RUN chown -R node:node /usr/src/app
-
 # Expose port (adjust according to your app's port)
 EXPOSE 3001
 
 # Use npx to ensure nodemon from node_modules is used
-CMD ["npx", "nodemon", "app.js"]
+CMD ["npm", "run", "dev"
